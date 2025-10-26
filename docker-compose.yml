@@ -1,0 +1,38 @@
+services:
+  watchtower:
+    container_name: watchtower
+    image: nickfedor/watchtower:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+    # DESCOMENTA EL PUERTO SI USAS LA API
+    # ports:
+    #   - 8083:8080
+    environment:
+      - WATCHTOWER_SCHEDULE=5 0 * * *         # Actualizaciones a las 00:05 diarias
+      
+      - WATCHTOWER_CLEANUP=true               # Limpiar imágenes antiguas
+      - WATCHTOWER_INCLUDE_STOPPED=false      # No actualizar contenedores parados
+      - WATCHTOWER_REVIVE_STOPPED=false       # No revivir contenedores parados
+      
+      - WATCHTOWER_ROLLING_RESTART=true       # Reinicio escalonado (menos downtime)
+      - WATCHTOWER_TIMEOUT=30s                # Timeout para operaciones
+      
+      - WATCHTOWER_LOG_LEVEL=info            # Nivel de logging
+      - WATCHTOWER_LOG_FORMAT=json           # Logs estructurados
+      # DESCOMENTA ESTAS SI USAS LA API:
+      # - WATCHTOWER_HTTP_API_METRICS=true
+      # - WATCHTOWER_HTTP_API_PERIODIC_POLLS=true
+      
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    # aCTIVA EL HEALTHCHECK SI HAY API
+    # healthcheck:
+    #   test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/v1/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 40s
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
