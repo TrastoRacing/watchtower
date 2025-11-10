@@ -9,14 +9,14 @@ services:
     # ports:
     #   - 8083:8080
     environment:
-      - WATCHTOWER_SCHEDULE=5 0 * * *         # Actualizaciones a las 00:05 diarias
+      - WATCHTOWER_SCHEDULE=0 5 0 * * *         # Actualizaciones a las 00:05 diarias
       
       - WATCHTOWER_CLEANUP=true               # Limpiar imágenes antiguas
       - WATCHTOWER_INCLUDE_STOPPED=false      # No actualizar contenedores parados
       - WATCHTOWER_REVIVE_STOPPED=false       # No revivir contenedores parados
       
       - WATCHTOWER_ROLLING_RESTART=true       # Reinicio escalonado (menos downtime)
-      - WATCHTOWER_TIMEOUT=30s                # Timeout para operaciones
+      - WATCHTOWER_TIMEOUT=120s                # Timeout para operaciones
       
       - WATCHTOWER_LOG_LEVEL=info            # Nivel de logging
       - WATCHTOWER_LOG_FORMAT=json           # Logs estructurados
