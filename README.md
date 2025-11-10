@@ -35,7 +35,7 @@ cd watchtower-compose
 
 | Variable | Valor | Descripción |
 |----------|-------|-------------|
-| `WATCHTOWER_SCHEDULE` | `5 0 * * *` | Cron para actualizaciones (00:05 diarios) |
+| `WATCHTOWER_SCHEDULE` | `0 5 0 * * *` | Cron para actualizaciones (00:05 diarios) |
 | `WATCHTOWER_CLEANUP` | `true` | Limpia imágenes antiguas automáticamente |
 | `WATCHTOWER_ROLLING_RESTART` | `true` | Reinicia contenedores de forma escalonada |
 | `WATCHTOWER_LOG_FORMAT` | `json` | Formato de logs estructurados |
